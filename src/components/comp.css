@@ -1,0 +1,375 @@
+/* Header start */
+
+header{
+    padding: 3rem 3rem 7rem 3rem;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1/-1;
+}
+#menu{
+    width: 95px;
+    height: 19px;
+}
+.menu-icon #l-line{
+    transition: .3s ease;
+}
+.l-line-anime{
+    transform: translateX(-14px);
+}
+.slide-in-menu{
+    position: absolute;
+    right: 3rem;
+    top: 7rem;
+    list-style: none;
+    transition: .3s ease;
+    z-index: 2;
+}
+.slide-in-menu li{
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1440px) {
+    .logo{
+        width: 4rem;
+    }
+    #menu{
+        width: 4rem;
+    }
+    .slide-in-menu{
+        top: 6rem;
+    }
+
+}
+@media screen and (max-width: 768px) {
+    header{
+        padding: 2rem 2rem 7rem 2rem;
+    }
+    .slide-in-menu{
+        top: 5rem;
+        right: 1.5rem;
+    }
+}
+@media screen and (max-width: 425px) {
+    header{
+        padding: 2rem 1rem 7rem 1rem;
+    }
+    .logo{
+        width: 3rem;
+    }
+    #menu{
+        width: 3rem;
+    }
+
+}
+.slide-in-menu-close{
+    right: -10rem;
+}
+
+/* Header end */
+
+/* Bio section start */
+
+.bio-container{
+    grid-column: 3/10;
+    margin-bottom: 5rem;
+}
+.bio-wrapper h1{
+    position: relative;
+    left: 10%;
+    font-size: 4rem;
+    line-height: 5rem;
+}
+.bio-wrapper h1 span{
+    font-family: var(--font-b);
+    font-size: 7rem;
+}
+.bio-photo{
+    position: relative;
+    width: 70%;
+    left: 30%;
+    top: -2.5rem;
+    z-index: -1;
+}
+.bio-body{
+    font-size: 4rem;
+}
+.bio-body span{
+    font-family: var(--font-i);
+    position: relative;
+}
+.bio-body span::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #7BB7E2;
+}
+
+@media screen and (max-width: 1440px){
+    .bio-container{
+        grid-column: 3/9;
+    }
+    .bio-wrapper h1{
+        font-size: 3.5rem;
+        line-height: 4rem;
+    }
+    .bio-wrapper h1 span{
+        font-size: 6rem;
+    }
+    .bio-photo{
+        width: 65%;
+    }
+    .bio-body{
+        font-size: 3.5rem;
+    }
+}
+@media screen and (max-width: 1024px){
+    .bio-container{
+        grid-column: 2/8;
+    }
+    .bio-wrapper h1{
+        font-size: 3rem;
+        line-height: 3.5rem;
+    }
+    .bio-wrapper h1 span{
+        font-size: 5rem;
+    }
+    .bio-photo{
+        width: 70%;
+        top: -2rem;
+    }
+    .bio-body{
+        font-size: 3rem;
+    }
+}
+@media screen and (max-width: 768px){
+    .bio-container{
+        grid-column: 2/6;
+    }
+    .bio-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bio-wrapper h1{
+        font-size: 2.5rem;
+        line-height: 3rem;
+        left: 0;
+    }
+    .bio-wrapper h1 span{
+        font-size: 4rem;
+        
+    }
+    .bio-photo{
+        width: 90%;
+        top: -1.5rem;
+        left: 0;
+
+    }
+    .bio-body{
+        font-size: 2.5rem;
+    }
+}
+@media screen and (max-width: 425px){
+    .bio-container{
+        grid-column: 1/-1;
+    }
+    .bio-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bio-wrapper h1{
+        font-size: 2rem;
+        line-height: 2rem;
+        left: 0;
+    }
+    .bio-wrapper h1 span{
+        font-size: 3rem;
+        
+    }
+    .bio-photo{
+        width: 80%;
+        top: -1rem;
+        left: 0;
+
+    }
+    .bio-body{
+        font-size: 2rem;
+        padding: 0rem 2rem;
+    }
+}
+
+/* Bio section end */
+
+/* Project section start */
+
+.project-container{
+    grid-column: 2/12;
+    align-self: center;
+    justify-self: center;
+    margin: 5rem 0rem 3rem 0rem;
+}
+.projects-wrapper h1{
+    text-align: center;
+    font-size: 6rem;
+}
+.project-items{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+    align-items: center;
+    padding: 10rem 0rem;
+}
+.project-item{
+    width: 45%;
+}
+.project-item img{
+    box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+}
+.project-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .5rem;
+}
+.more-info, .visit-project{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-family: var(--font-i);
+    color: #151617;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 1440px){
+    .project-container{
+        grid-column: 2/10;
+    }
+}
+@media screen and (max-width: 1024px){
+    .project-container{
+        grid-column: 2/8;
+    }
+    .projects-wrapper h1{
+        font-size: 5rem;
+    }
+    .project-items{
+        padding: 5rem 0rem;
+    }
+    .project-item{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 768px){
+    .project-container{
+        grid-column: 2/6;
+    }
+    .projects-wrapper h1{
+        font-size: 4rem;
+    }
+    .project-item{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 425px){
+    .project-container{
+        grid-column: 1/-1;
+        padding: 0rem 2rem;
+    }
+    .projects-wrapper h1{
+        font-size: 3rem;
+    }
+}
+
+/* Project Section end */
+
+/* Contact Section start */
+
+  .contact {
+    grid-column: 2/12;
+    margin-bottom: 5rem;
+  }
+  #contact-title {
+    font-family: var(--font-b);
+    font-size: 6rem;
+    color: rgb(var(--d-color));
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  .contact-list{
+    list-style-type: none;
+  }
+  .contact li {
+    font-size: 4.5ch;
+    border-bottom: 2px solid;
+    padding: 1rem 0rem 1rem 0rem;
+    color: rgb(var(--d-color));
+  }
+  .contact li span {
+    float: right;
+  }
+  .contact li a {
+    text-decoration: none;
+    color: rgb(var(--d-color));
+  }
+
+  @media screen and (max-width: 1440px){
+    .contact{
+        grid-column: 2/10;
+    }
+}
+@media screen and (max-width: 1024px){
+    .contact{
+        grid-column: 2/8;
+    }
+    #contact-title{
+        font-size: 5rem;
+    }
+    .contact li{
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width: 768px){
+    .contact{
+        grid-column: 1/-1;
+        padding: 0rem 3rem;
+    }
+    #contact-title{
+        font-size: 4rem;
+    }
+    .contact li{
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width: 425px){
+    .contact{
+        padding: 0rem 2rem;
+    }
+    #contact-title{
+        font-size: 3rem;
+    }
+}
+
+
+/* Contact Section end */
+
+/* Footer Section start */
+
+footer{
+    grid-column: 1/-1;
+    justify-self: center;
+    margin: 1rem 0rem 1rem 0rem;
+}

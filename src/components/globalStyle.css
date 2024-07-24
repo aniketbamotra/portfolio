@@ -1,0 +1,72 @@
+@font-face {
+    font-family: "Hagrid";
+    src: url(../assets/fonts/hagrid/Hagrid-Regular-trial.ttf);
+}
+@font-face {
+    font-family: "Hagrid-i";
+    src: url(../assets/fonts/hagrid/Hagrid-Italic-trial.ttf);
+}
+@font-face {
+    font-family: "Hagrid-b";
+    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-trial.ttf);
+}
+@font-face {
+    font-family: "Hagrid-bi";
+    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-Italic-trial.ttf);
+}
+  
+:root {
+    --font-r: Hagrid;
+    --font-i: Hagrid-i;
+    --font-b: Hagrid-b;
+    --font-bi: Hagrid-bi;
+    --d-color: 16, 0, 27;
+}
+
+.font {
+    font-family: var(--font-r);
+    font-weight: normal;
+    color: #151617;
+  }
+  .font-b {
+    font-family: var(--font-b);
+    font-weight: normal;
+    color: #151617;
+  }  
+  .highlight {
+    font-family: var(--font-i);
+    color: #151617;
+  }
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+@media screen and (max-width: 1440px) {    
+    .grid-container{
+        grid-template-columns: repeat(10, 1fr);
+    }
+}
+@media screen and (max-width: 1024px) {    
+    .grid-container{
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {    
+    .grid-container{
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+@media screen and (max-width: 425px) {    
+    .grid-container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
