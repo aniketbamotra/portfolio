@@ -23,6 +23,10 @@
     --d-color: 16, 0, 27;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .font {
     font-family: var(--font-r);
     font-weight: normal;
