@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ExternalLinkIcon from "../ExternalLinkIcon";
+import ArrowIcon from "../ArrowIcon";
 import { projects, metaFor, linkProps } from "./projectsData";
 
 // How far the covered image drifts up as the next one rises over it.
@@ -111,7 +112,7 @@ const ProjectsDeck = () => {
                 >
                   <span className="deck-title font">{project.title}</span>
                   <span className="deck-meta highlight">{metaFor(project)}</span>
-                  <ExternalLinkIcon />
+                  {project.caseStudy ? <ArrowIcon /> : <ExternalLinkIcon />}
                 </a>
               ))}
             </div>

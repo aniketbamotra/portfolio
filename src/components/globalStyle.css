@@ -27,8 +27,43 @@
     font-display: swap;
 }
 
+/* The Hagrid trial files draw every digit as a "trial only" stamp (and lack ×
+   and →), so
+   numerals come from a system grotesk until a licensed Hagrid replaces them.
+   Delete these four faces and "Hagrid Numerals" below once it does. */
+@font-face {
+    font-family: "Hagrid Numerals";
+    src: local("HelveticaNeue"), local("Helvetica Neue"), local("ArialMT"), local("Arial");
+    font-weight: 400;
+    font-style: normal;
+    unicode-range: U+0030-0039, U+00D7, U+2192;
+}
+@font-face {
+    font-family: "Hagrid Numerals";
+    src: local("HelveticaNeue-Italic"), local("Helvetica Neue Italic"), local("Arial-ItalicMT"), local("Arial Italic");
+    font-weight: 400;
+    font-style: italic;
+    unicode-range: U+0030-0039, U+00D7, U+2192;
+}
+@font-face {
+    font-family: "Hagrid Numerals";
+    src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold"), local("Arial-BoldMT"), local("Arial Bold");
+    font-weight: 800;
+    font-style: normal;
+    unicode-range: U+0030-0039, U+00D7, U+2192;
+}
+@font-face {
+    font-family: "Hagrid Numerals";
+    src: local("HelveticaNeue-BoldItalic"), local("Helvetica Neue Bold Italic"), local("Arial-BoldItalicMT"), local("Arial Bold Italic");
+    font-weight: 800;
+    font-style: italic;
+    unicode-range: U+0030-0039, U+00D7, U+2192;
+}
+
 :root {
-    --font-family: "Hagrid", "Helvetica Neue", Arial, sans-serif;
+    --font-family: "Hagrid Numerals", "Hagrid", "Helvetica Neue", Arial, sans-serif;
+    /* For figures that mix digits and letters, so they stay in one face. */
+    --font-numerals: "Helvetica Neue", Arial, sans-serif;
     --color-ink: #10001b;
     --color-accent: #7bb7e2;
     --color-bg: #ffffff;
@@ -73,6 +108,16 @@ a[aria-current="true"] .sweep{
 html {
     scroll-behavior: smooth;
 }
+
+.sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
 
 .font {
     font-family: var(--font-family);

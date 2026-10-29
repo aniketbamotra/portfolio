@@ -1,0 +1,450 @@
+/* Diagrams for the compliance platform case study. Nodes are plain boxes in
+   ink; the accent marks what I built, a tint marks AI steps. */
+
+.cs-diagram{
+    --arrow-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 24'%3E%3Cpath d='M6 0v22.5M1.5 18l4.5 4.5 4.5-4.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+    --arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h22.5M18 1.5l4.5 4.5-4.5 4.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+    font-size: clamp(.8125rem, .76rem + .2vw, .9375rem);
+    line-height: 1.3;
+    container-type: inline-size;
+}
+.cs-diagram ol,
+.cs-diagram ul{
+    list-style: none;
+}
+.cs-diagram li{
+    max-width: none;
+}
+
+.d-node{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 3.25rem;
+    padding: .5rem .75rem;
+    text-align: center;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-ink);
+}
+.d-node.is-dashed{
+    border-style: dashed;
+}
+.d-node.is-ink{
+    background-color: var(--color-ink);
+    color: var(--color-bg);
+}
+.d-node.is-ai{
+    background-color: var(--cs-tint);
+    border-color: var(--cs-line);
+}
+.d-tag{
+    display: block;
+    margin-top: .15rem;
+    font-size: .85em;
+    color: var(--color-ink-muted);
+}
+
+/* A step in a flow: every step after the first draws its arrow in. */
+.d-step{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.d-step + .d-step::before{
+    content: "";
+    flex: none;
+    width: .75rem;
+    height: 1.5rem;
+    margin: .25rem 0;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-down) center / contain no-repeat;
+    mask: var(--arrow-down) center / contain no-repeat;
+}
+
+.d-legend{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1.5rem;
+    margin-top: 1.25rem;
+    color: var(--color-ink-muted);
+}
+.d-legend li,
+p.d-legend{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.d-swatch{
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--color-ink);
+}
+.d-swatch.is-mine{
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+.d-swatch.is-ai{
+    background-color: var(--cs-tint);
+    border-color: var(--cs-line);
+}
+
+/* 1 · Before and after: two lanes. Nodes have a fixed height so the loop and
+   the exception branch can line up with the steps they leave from. */
+
+.d1{
+    --node-h: 3.25rem;
+    --pitch: calc(var(--node-h) + 2rem);
+    --gap: 1.25rem;
+}
+.d1-lanes{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem clamp(2rem, 5vw, 5rem);
+}
+.d1-lane-title{
+    margin-bottom: 1.25rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--color-ink);
+    font-size: 1.15em;
+}
+.d1-grid{
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    column-gap: var(--gap);
+    align-items: start;
+}
+.d1 .d-node{
+    height: var(--node-h);
+    min-height: 0;
+}
+.d1-before .d-node{
+    border-color: var(--cs-line);
+    color: var(--color-ink-muted);
+}
+.d1-steps{
+    position: relative;
+}
+/* The loop: out of Excel, up the side and back into "Email vendor". */
+.d1-before .d1-steps::after{
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: calc(var(--node-h) / 2);
+    bottom: calc(var(--node-h) / 2);
+    width: calc(var(--gap) + .5rem);
+    border: 1.5px dashed var(--color-ink);
+    border-left: 0;
+    border-radius: 0 .5rem .5rem 0;
+}
+.d1-before .d1-steps::before{
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: calc(var(--node-h) / 2 - 4.25px);
+    border-block: 5px solid transparent;
+    border-right: 7px solid var(--color-ink);
+}
+.d1-loop{
+    align-self: center;
+    padding-left: 1.25rem;
+    font-size: 1em;
+    line-height: 1.35;
+}
+/* The exception branch leaves "Auto-validate", the fourth step. */
+.d1-branch{
+    position: relative;
+    margin-top: calc(var(--pitch) * 3);
+}
+.d1-branch::before{
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: calc(var(--node-h) / 2);
+    width: var(--gap);
+    border-top: 1.5px dashed var(--color-ink);
+}
+.d1-branch::after{
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: calc(var(--node-h) / 2 - 4.25px);
+    border-block: 5px solid transparent;
+    border-left: 7px solid var(--color-ink);
+}
+
+/* 2 · System flow: zones stack with their stages in a row; on wide screens
+   the whole pipeline runs left to right; on phones everything stacks. */
+
+.d2-zones{
+    display: flex;
+    flex-direction: column;
+}
+.d2-zone > .d2-zone-box{
+    width: 100%;
+}
+.d2-zone-box{
+    padding: .75rem;
+    background-color: var(--cs-tint);
+    border: 1px solid var(--cs-line);
+}
+.d2-zone-box.is-mine{
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+.d2-zone-title{
+    margin-bottom: .6rem;
+}
+.d2-stages{
+    display: flex;
+}
+.d2-stages > .d-step{
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: row;
+    align-items: stretch;
+}
+.d2-stages > .d-step + .d-step::before{
+    align-self: center;
+    width: 1rem;
+    height: .75rem;
+    margin: 0 .25rem;
+    -webkit-mask-image: var(--arrow-right);
+    mask-image: var(--arrow-right);
+}
+.d2-card{
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    flex: 1;
+    min-width: 0;
+    padding: .625rem .75rem .75rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-ink);
+}
+.d2-n,
+.d2-note{
+    color: var(--color-ink-muted);
+}
+.d2-name{
+    font-size: 1.1em;
+}
+.d2-note{
+    font-size: .9em;
+}
+.d2-outputs{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+}
+
+/* Only when the figure itself has room for seven stages in a row. */
+@container (min-width: 1100px){
+    .d2-zones{
+        flex-direction: row;
+    }
+    .d2-zone{
+        flex: 3 1 0;
+        min-width: 0;
+        flex-direction: row;
+        align-items: stretch;
+    }
+    .d2-zone:nth-child(2){
+        flex-grow: 1.1;
+    }
+    .d2-zone:last-child{
+        flex-grow: 1.5;
+    }
+    .d2-zone + .d2-zone::before{
+        align-self: center;
+        width: 1rem;
+        height: .75rem;
+        margin: 0 .25rem;
+        -webkit-mask-image: var(--arrow-right);
+        mask-image: var(--arrow-right);
+    }
+    .d2-zone-box{
+        display: flex;
+        flex-direction: column;
+    }
+    .d2-stages{
+        flex: 1;
+        align-items: flex-start;
+    }
+    .d2-stages > .d-step + .d-step::before{
+        align-self: flex-start;
+        margin-top: 1.6rem;
+    }
+    .d2-outputs{
+        flex: 1;
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 640px){
+    .d2-stages{
+        flex-direction: column;
+    }
+    .d2-stages > .d-step{
+        flex-direction: column;
+    }
+    .d2-stages > .d-step + .d-step::before{
+        width: .75rem;
+        height: 1.25rem;
+        margin: .2rem 0;
+        -webkit-mask-image: var(--arrow-down);
+        mask-image: var(--arrow-down);
+    }
+    .d2-card{
+        width: 100%;
+    }
+}
+
+/* 3 · AI pipeline: one column, fanning out to three extractors, with the
+   note on the side. */
+
+.d3-layout{
+    display: grid;
+    grid-template-columns: minmax(0, 36rem) minmax(12rem, 20rem);
+    justify-content: start;
+    gap: 2rem clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+.d3-flow{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 36rem;
+    justify-self: start;
+}
+.d3 .d-node{
+    border-color: var(--cs-line);
+}
+.d3 .d-node.is-ink{
+    border-color: var(--color-ink);
+}
+.d3 .d-node.is-rule{
+    border-color: var(--color-ink);
+}
+.d3 .d-node.is-ai{
+    border-color: var(--cs-line);
+}
+/* The fan: a bar out of the classifier, a tick into each extractor, and the
+   same again on the way out. */
+.d3-fan{
+    --fan-gap: .75rem;
+    --fan-edge: calc((100% - 2 * var(--fan-gap)) / 6);
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--fan-gap);
+    width: 100%;
+    padding: 1rem 0;
+}
+.d3-fan::before,
+.d3-fan::after{
+    content: "";
+    position: absolute;
+    left: var(--fan-edge);
+    right: var(--fan-edge);
+    border-top: 1.5px solid var(--color-ink);
+}
+.d3-fan::before{
+    top: 0;
+}
+.d3-fan::after{
+    bottom: -1.5px;
+}
+.d3-fan > li{
+    position: relative;
+}
+.d3-fan > li::before,
+.d3-fan > li::after{
+    content: "";
+    position: absolute;
+    left: calc(50% - .75px);
+    width: 1.5px;
+    height: 1rem;
+    background-color: var(--color-ink);
+}
+.d3-fan > li::before{
+    bottom: 100%;
+}
+.d3-fan > li::after{
+    top: 100%;
+}
+.d3-fan-step::before{
+    margin-bottom: 0 !important;
+}
+.d3-fan-step + .d-step::before{
+    margin-top: 0;
+}
+.d3-note{
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-ink);
+    font-size: clamp(1.125rem, 1rem + .5vw, 1.5rem);
+    line-height: 1.35;
+}
+.d3-side .d-legend{
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px){
+    .d3-layout{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px){
+    .d1-lanes{
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 4 · Caching: a reviewer's path as numbered cards, top to bottom, over a
+   base of reference data. A row of four was too cramped for the tags. */
+
+.d4-steps{
+    display: flex;
+    flex-direction: column;
+}
+.d4-card{
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    width: 100%;
+    padding: .75rem .875rem .875rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-ink);
+}
+.d4-effect{
+    margin-bottom: .5rem;
+}
+.d4-caches{
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin-top: auto;
+}
+.d4-caches li{
+    padding: .35rem .5rem;
+    background-color: var(--cs-tint);
+    border-left: 2px solid var(--color-accent);
+    font-size: .9em;
+}
+.d4-caches .highlight{
+    color: var(--color-ink-muted);
+}
+.d4-base{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    max-width: none;
+    margin-top: 1rem;
+    padding: .75rem .875rem;
+    background-color: var(--cs-tint);
+    border: 1px dashed var(--color-ink);
+}

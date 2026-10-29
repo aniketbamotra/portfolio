@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import logo from "../assets/images/Logo.png"
 import "./comp.css"
 
-const TopMenu = () => {
+// base points the section links back at the home page from other pages.
+const TopMenu = ({ base = "" }) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const pointerType = useRef("");
@@ -46,7 +47,10 @@ const TopMenu = () => {
 
   return (
     <header>
-        <a href="#bio" aria-label="Aniket Bamotra, back to top">
+        <a
+          href={`${base}#bio`}
+          aria-label={base ? "Aniket Bamotra, home" : "Aniket Bamotra, back to top"}
+        >
           <img
             src={logo}
             alt=""
@@ -104,12 +108,12 @@ const TopMenu = () => {
           </button>
           <ul id="site-menu" className={`slide-in-menu${open ? " is-open" : ""}`}>
             <li className="font">
-              <a href='#bio' onClick={close}>
+              <a href={`${base}#bio`} onClick={close}>
                 About
               </a>
             </li>
             <li className="font">
-              <a href='#project' onClick={close}>
+              <a href={`${base}#project`} onClick={close}>
                 Projects
               </a>
             </li>
