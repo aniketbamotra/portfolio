@@ -403,3 +403,48 @@ p.d-legend{
         grid-template-columns: 1fr;
     }
 }
+
+/* 4 · Caching: a reviewer's path as numbered cards, top to bottom, over a
+   base of reference data. A row of four was too cramped for the tags. */
+
+.d4-steps{
+    display: flex;
+    flex-direction: column;
+}
+.d4-card{
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    width: 100%;
+    padding: .75rem .875rem .875rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-ink);
+}
+.d4-effect{
+    margin-bottom: .5rem;
+}
+.d4-caches{
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin-top: auto;
+}
+.d4-caches li{
+    padding: .35rem .5rem;
+    background-color: var(--cs-tint);
+    border-left: 2px solid var(--color-accent);
+    font-size: .9em;
+}
+.d4-caches .highlight{
+    color: var(--color-ink-muted);
+}
+.d4-base{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    max-width: none;
+    margin-top: 1rem;
+    padding: .75rem .875rem;
+    background-color: var(--cs-tint);
+    border: 1px dashed var(--color-ink);
+}

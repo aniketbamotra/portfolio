@@ -211,3 +211,68 @@ export const AiPipeline = () => (
     </div>
   </Diagram>
 );
+
+// One reviewer's loop through the internal portal, and the cache that makes
+// each moment fast. Reference data sits under every step.
+const path = [
+  {
+    action: "Open a list",
+    effect: "Results are saved under its filters, sort and page.",
+    caches: [["List results", "5 min, up to 50 lists"]],
+  },
+  {
+    action: "Open a record",
+    effect: "Report details and citations load only when the panel needs them.",
+    caches: [["Record details", "until reprocessed or you switch record"]],
+  },
+  {
+    action: "Go back to the list",
+    effect: "Same filters, sort and page. The saved results show instantly, then refresh quietly.",
+    caches: [
+      ["UI state", "browser session"],
+      ["List results", "refreshed in the background"],
+    ],
+  },
+  {
+    action: "Open the next record",
+    effect: "Only that record’s details are fetched. Everything else is already there.",
+    caches: [["Record details", "loaded on demand"]],
+  },
+];
+
+export const CacheLayers = () => (
+  <Diagram
+    className="d4"
+    caption="A reviewer’s loop through the queue, and the cache that keeps each step instant."
+    summary="A reviewer opens a list, and its results are saved under its filters, sort and page for 5 minutes. They open a record, and its report details and citations load only then. They go back to the list: the filters, sort and page are still set, and the saved results show instantly while fresh data loads in the background. They open the next record, and only that record's details are fetched. Underneath every step, reference data such as HTS codes, standards and testing labs is fetched once per session and shared."
+  >
+    <div className="d4-path" aria-hidden="true">
+      <ol className="d4-steps">
+        {path.map(({ action, effect, caches }, i) => (
+          <li className="d4-step d-step" key={action}>
+            <div className="d4-card">
+              <span className="d2-n highlight">{i + 1}</span>
+              <span className="d2-name font-b">{action}</span>
+              <span className="d4-effect">{effect}</span>
+              <ul className="d4-caches">
+                {caches.map(([layer, life]) => (
+                  <li key={layer}>
+                    <span className="font-b">{layer}</span>
+                    <span className="highlight"> · {life}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="d4-base">
+        <span className="font-b">Reference data</span>
+        <span>
+          HTS codes, standards, exclusion codes and labs: fetched once per
+          session and shared by every step.
+        </span>
+      </p>
+    </div>
+  </Diagram>
+);

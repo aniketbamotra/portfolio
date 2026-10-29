@@ -1,10 +1,18 @@
 import ArrowIcon from "../../ArrowIcon";
 import { Frame, Overview, Section, Stats } from "../CaseStudy";
 import CaseStudyNav from "../CaseStudyNav";
-import { AiPipeline, BeforeAfter, SystemFlow } from "./Diagrams";
+import { AiPipeline, BeforeAfter, CacheLayers, SystemFlow } from "./Diagrams";
+import homeOverview from "../../../assets/case-studies/compliance-platform/01-home-overview.png";
+import workflowTracker from "../../../assets/case-studies/compliance-platform/02-workflow-tracker.png";
+import recordDetails from "../../../assets/case-studies/compliance-platform/03-record-details.png";
+import testReportValidation from "../../../assets/case-studies/compliance-platform/04-test-report-validation.png";
+import testReportsList from "../../../assets/case-studies/compliance-platform/05-test-reports-list.png";
+import cocList from "../../../assets/case-studies/compliance-platform/06-coc-list.png";
+import vendorProducts from "../../../assets/case-studies/compliance-platform/07-vendor-portal-products.png";
+import vendorUpload from "../../../assets/case-studies/compliance-platform/08-vendor-portal-upload.png";
+import vendorManufacturing from "../../../assets/case-studies/compliance-platform/09-vendor-portal-manufacturing.png";
 
 // Client work under NDA: never name the client, its systems or colleagues.
-const STUDY = "compliance-platform";
 
 const overview = [
   {
@@ -124,13 +132,6 @@ const CompliancePlatform = () => (
       </ul>
     </div>
 
-    <Frame
-      study={STUDY}
-      name="cover"
-      ratio="16 / 9"
-      alt="Compliance Platform cover."
-    />
-
     <Overview items={overview} />
     <Stats items={stats} label="Outcomes" />
 
@@ -249,6 +250,11 @@ const CompliancePlatform = () => (
     </Section>
 
     <Section id="internal-portal" title="Designing the internal portal">
+      <Frame
+        src={homeOverview}
+        alt="Home — a count of records at each stage, with failures highlighted."
+        caption="Home — a count of records at each stage, with failures highlighted."
+      />
       <p>Three pages, one for each stage of a record’s life:</p>
       <table className="cs-table">
         <thead>
@@ -281,10 +287,19 @@ const CompliancePlatform = () => (
         , so the team’s queue is the exceptions list and nothing else.
       </p>
       <Frame
-        study={STUDY}
-        name="01-workflow-tracker"
+        src={workflowTracker}
         alt="Workflow Tracker — the team’s queue contains only records that need a human."
         caption="Workflow Tracker — the team’s queue contains only records that need a human."
+      />
+      <Frame
+        src={testReportsList}
+        alt="Test Reports — every report received and its processing status."
+        caption="Test Reports — every report received and its processing status."
+      />
+      <Frame
+        src={cocList}
+        alt="CoC List — certificates generated automatically for reports that pass."
+        caption="CoC List — certificates generated automatically for reports that pass."
       />
 
       <h3 className="cs-h3 font-b">A detail panel built for fixing things</h3>
@@ -324,14 +339,12 @@ const CompliancePlatform = () => (
         </li>
       </ul>
       <Frame
-        study={STUDY}
-        name="02-detail-panel-product"
+        src={recordDetails}
         alt="Detail panel opens in place, so reviewers keep their position in the queue."
         caption="Detail panel opens in place, so reviewers keep their position in the queue."
       />
       <Frame
-        study={STUDY}
-        name="03-detail-panel-test-report-validation"
+        src={testReportValidation}
         alt="Validation rail explains why a report failed: citations, manufacturer match, date window."
         caption={
           <>
@@ -349,18 +362,6 @@ const CompliancePlatform = () => (
         being scattered across inboxes. This removed most of the
         back-and-forth emails that used to slow the old process down.
       </p>
-      <Frame
-        study={STUDY}
-        name="04-record-messaging"
-        alt="Messages on a record appear on the same record in the vendor portal."
-        caption="Messages on a record appear on the same record in the vendor portal."
-      />
-      <Frame
-        study={STUDY}
-        name="05-coc-list"
-        alt="CoC List — certificates generated automatically for reports that pass."
-        caption="CoC List — certificates generated automatically for reports that pass."
-      />
     </Section>
 
     <Section id="vendor-portal" title="Designing the vendor portal">
@@ -392,16 +393,19 @@ const CompliancePlatform = () => (
         through the processing pipeline.
       </p>
       <Frame
-        study={STUDY}
-        name="06-vendor-portal-products"
+        src={vendorProducts}
         alt="Vendor portal shows only the products that need certification."
         caption="Vendor portal shows only the products that need certification."
       />
       <Frame
-        study={STUDY}
-        name="07-vendor-portal-upload"
-        alt="Uploading test reports and manufacturing details."
-        caption="Uploading test reports and manufacturing details."
+        src={vendorUpload}
+        alt="Uploading test reports, with the compliance team’s message on the same record."
+        caption="Uploading test reports, with the compliance team’s message on the same record."
+      />
+      <Frame
+        src={vendorManufacturing}
+        alt="Manufacturing details, with the factory chosen from an approved list."
+        caption="Manufacturing details, with the factory chosen from an approved list."
       />
     </Section>
 
@@ -420,17 +424,43 @@ const CompliancePlatform = () => (
       </p>
       <p>
         I re-engineered the frontend data layer while the system was in
-        production:
+        production. Rather than adding a data-fetching library late in the
+        project, I built a small caching layer suited to how reviewers actually
+        move through the app:
       </p>
+      <CacheLayers />
       <ul className="cs-list">
         <li>
-          <strong>Caching on every list page.</strong> Moving between the
-          Workflow Tracker, Test Reports and CoC List no longer meant waiting
-          for a full reload every time.
+          <strong>List pages render instantly, then refresh.</strong> Each list
+          page (Workflow Tracker, Test Reports, CoC List) saves its results
+          under a key made from its filters, sort and page. When you go back to
+          a list, the saved results appear straight away with no spinner, while
+          fresh data loads quietly in the background (stale-while-revalidate).
+          Entries expire after 5 minutes and the cache keeps at most 50, so
+          memory use stays small. A request counter makes sure a slow, older
+          response can never overwrite a newer one.
         </li>
         <li>
-          <strong>Caching detail data.</strong> Re-opening a record, or moving
-          back and forth between records, became instant.
+          <strong>Reference data is fetched once.</strong> HTS codes, approved
+          standards, exclusion codes and testing-lab summaries are loaded once
+          per session. If several components ask for the same thing at the same
+          moment, they share one request. A failed request is removed from the
+          cache so the next call can retry. Admin-editable settings are
+          deliberately left uncached so they’re never out of date.
+        </li>
+        <li>
+          <strong>Record details load on demand.</strong> A record’s report
+          details and citations are only fetched when the panel actually needs
+          them, and a load that’s already running is reused instead of starting
+          a second one. When a report is reprocessed, its cache is cleared and
+          a version counter stops an earlier, still-running load from writing
+          old data back.
+        </li>
+        <li>
+          <strong>Lists remember where you were.</strong> Filters, sort and
+          page number are saved for each table, so coming back from a record
+          puts the reviewer exactly where they left off in a queue of
+          thousands.
         </li>
         <li>
           <strong>Smaller API responses.</strong> List endpoints now return

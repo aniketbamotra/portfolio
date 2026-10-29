@@ -5,7 +5,7 @@ import purebet from "../../assets/images/purebet.webp";
 import keploy from "../../assets/images/keploy.webp";
 import gemx from "../../assets/images/gemx.webp";
 import dcj from "../../assets/images/dcj.webp";
-import { frameSrc, placeholderImage } from "../case-study/frames";
+import compliancePlatform from "../../assets/case-studies/compliance-platform/cover.png";
 
 // role and year are optional; when both are missing a project shows its domain.
 // caseStudy marks a project whose url is a page on this site rather than an
@@ -15,9 +15,7 @@ import { frameSrc, placeholderImage } from "../case-study/frames";
 export const projects = [
   {
     title: "Compliance Platform",
-    image:
-      frameSrc("compliance-platform", "cover") ??
-      placeholderImage("cover.png", 1600, 900),
+    image: compliancePlatform,
     url: "/compliance-platform/",
     caseStudy: true,
     role: "Design Technologist",

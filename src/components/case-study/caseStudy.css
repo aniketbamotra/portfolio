@@ -1,5 +1,5 @@
 /* Case study pages. They sit on the same 12/10/8/6/4 column grid as the home
-   page: prose keeps a reading measure, figures and frames run wider. */
+   page: prose, figures and frames share one reading column. */
 
 .cs-article{
     --cs-prose: 4 / 10;
@@ -88,6 +88,9 @@
 .cs-overview{
     margin-top: var(--space-xl);
     border-top: 1px solid var(--color-ink);
+}
+.cs-hero + .cs-overview{
+    margin-top: 0;
 }
 .cs-overview-row{
     display: grid;
@@ -309,9 +312,6 @@
 .cs-diagram{
     margin: clamp(2.5rem, 2rem + 2vw, 4rem) 0;
 }
-.cs-article > .cs-frame{
-    margin-top: 0;
-}
 .cs-section > .cs-frame + .cs-frame{
     margin-top: 0;
 }
@@ -320,15 +320,7 @@
     width: 100%;
     height: auto;
     background-color: var(--cs-tint);
-}
-.cs-frame-placeholder{
-    display: grid;
-    place-items: center;
-    width: 100%;
-    background-color: var(--cs-tint);
     border: 1px solid var(--cs-line);
-    color: var(--color-ink-muted);
-    font-size: clamp(.875rem, .8rem + .3vw, 1.125rem);
 }
 .cs-caption{
     display: block;

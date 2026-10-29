@@ -1,9 +1,7 @@
-import { frameSrc } from "./frames";
 import "./caseStudy.css";
 
-// Building blocks shared by case study pages. Each sits on the page grid and
-// picks its own column span: prose stays at a reading measure, figures and
-// frames run wider.
+// Building blocks shared by case study pages. Each sits on the page grid, on
+// the same reading column as the prose around it.
 
 export const Section = ({ id, title, children }) => (
   <section className="cs-section" aria-labelledby={id}>
@@ -37,38 +35,24 @@ export const Stats = ({ items, label }) => (
   </ul>
 );
 
-// A UI frame from src/assets/case-studies/<study>/<name>.png (or .webp).
-// Frames sit on the reading column, in line with the text they illustrate.
-// Until the file exists, a 16:10 block holds its place at the final size.
-export const Frame = ({ study, name, alt, caption, ratio = "16 / 10" }) => {
-  const src = frameSrc(study, name);
-  return (
-    <figure className="cs-frame">
-      {src ? (
-        <img
-          src={src}
-          alt={alt}
-          width="1600"
-          height="1000"
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div
-          className="cs-frame-placeholder"
-          role="img"
-          aria-label={alt}
-          style={{ aspectRatio: ratio }}
-        >
-          <span className="highlight">{name}.png</span>
-        </div>
-      )}
-      {caption && (
-        <figcaption className="cs-caption highlight">{caption}</figcaption>
-      )}
-    </figure>
-  );
-};
+// A UI frame, imported from src/assets/case-studies/<study>/. Frames sit on
+// the reading column, in line with the text they illustrate. All exports are
+// 1440×900.
+export const Frame = ({ src, alt, caption }) => (
+  <figure className="cs-frame">
+    <img
+      src={src}
+      alt={alt}
+      width="1440"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+    {caption && (
+      <figcaption className="cs-caption highlight">{caption}</figcaption>
+    )}
+  </figure>
+);
 
 // Wrapper for the code-drawn diagrams, on the reading column like frames so
 // text, figures and captions share one left edge. The drawing is real text, the caption
