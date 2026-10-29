@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ExternalLinkIcon from "../ExternalLinkIcon";
-import { projects, metaFor, linkProps } from "./projectsData";
+import { projects, metaFor, linkProps, useMedia } from "./projectsData";
 
 // Must match the media query that pins .stage-track in projects.css.
 const PIN_QUERY = "(min-width: 769px) and (min-height: 640px)";
@@ -10,20 +10,11 @@ const prefersReducedMotion = () =>
 
 // A quiet list of names beside one large screenshot. On wide screens the
 // stage pins to the viewport and scrolling steps through each project before
-// the page moves on; on small screens each name carries its own screenshot.
+// the page moves on; on short screens each name carries its own screenshot.
 const ProjectsStage = ({ heading }) => {
   const [active, setActive] = useState(0);
-  const [pinned, setPinned] = useState(
-    () => window.matchMedia(PIN_QUERY).matches
-  );
+  const pinned = useMedia(PIN_QUERY);
   const trackRef = useRef(null);
-
-  useEffect(() => {
-    const query = window.matchMedia(PIN_QUERY);
-    const onChange = () => setPinned(query.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
 
   // Scroll progress through the track picks the project on stage.
   useEffect(() => {

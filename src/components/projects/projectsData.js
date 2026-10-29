@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import immersiveBionic from "../../assets/images/immersive-bionic.webp";
 import suncare from "../../assets/images/suncare.webp";
 import purebet from "../../assets/images/purebet.webp";
@@ -6,6 +7,8 @@ import gemx from "../../assets/images/gemx.webp";
 import dcj from "../../assets/images/dcj.webp";
 
 // role and year are optional; when both are missing a project shows its domain.
+// mobileImage is an optional 4:5 portrait image for phones; until one is set,
+// the desktop screenshot is cropped to fit.
 export const projects = [
   {
     title: "Immersive Bionic",
@@ -50,3 +53,15 @@ export const linkProps = (project) => ({
   "aria-label": `${project.title}, ${metaFor(project)} (opens in a new tab)`,
 });
 
+export const useMedia = (query) => {
+  const [matches, setMatches] = useState(
+    () => window.matchMedia(query).matches
+  );
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const onChange = () => setMatches(list.matches);
+    list.addEventListener("change", onChange);
+    return () => list.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+};
