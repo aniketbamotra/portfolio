@@ -9,8 +9,26 @@ header{
     align-items: center;
     grid-column: 1/-1;
 }
+.logo{
+    display: block;
+    height: auto;
+}
+.menu-icon{
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 0;
+    cursor: pointer;
+    color: var(--color-ink);
+}
+/* Wraps the icon and the list so hover only counts over those two;
+   the list's top padding bridges the gap so the cursor can reach the links. */
+.menu-wrapper{
+    --menu-icon-w: 95px;
+    position: relative;
+}
 #menu{
-    width: 95px;
+    width: var(--menu-icon-w);
     height: 19px;
 }
 .menu-icon #l-line{
@@ -21,39 +39,46 @@ header{
 }
 .slide-in-menu{
     position: absolute;
-    right: 3rem;
-    top: 7rem;
+    /* Left edge of the icon is the same in both states (the upper line). */
+    left: 0;
+    top: 100%;
+    padding-top: 1.5rem;
     list-style: none;
-    transition: .3s ease;
+    transition: transform .3s ease, visibility .3s;
     z-index: 2;
+}
+.slide-in-menu:not(.is-open){
+    transform: translateX(calc(100% + var(--menu-icon-w) + 3rem));
+    visibility: hidden;
 }
 .slide-in-menu li{
     margin-bottom: 1rem;
 }
 .slide-in-menu a{
-    color: #000000;
+    color: var(--color-ink);
     text-decoration: none;
+}
+.slide-in-menu a:hover{
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 3px;
 }
 
 @media screen and (max-width: 1440px) {
     .logo{
         width: 4rem;
     }
-    #menu{
-        width: 4rem;
+    .menu-wrapper{
+        --menu-icon-w: 4rem;
     }
     .slide-in-menu{
-        top: 6rem;
+        padding-top: 1rem;
     }
 
 }
 @media screen and (max-width: 768px) {
     header{
         padding: 2rem 2rem 7rem 2rem;
-    }
-    .slide-in-menu{
-        top: 5rem;
-        right: 1.5rem;
     }
 }
 @media screen and (max-width: 425px) {
@@ -63,13 +88,17 @@ header{
     .logo{
         width: 3rem;
     }
-    #menu{
-        width: 3rem;
+    .menu-wrapper{
+        --menu-icon-w: 3rem;
+    }
+    /* Too narrow to hang the list off the icon's left edge ("Projects" is
+       wider than icon + header padding), so align to the icon's open-state
+       right edge instead: the lower line shifts 14 of 95 viewBox units. */
+    .slide-in-menu{
+        left: auto;
+        right: calc(var(--menu-icon-w) * 14 / 95);
     }
 
-}
-.slide-in-menu-close{
-    right: -10rem;
 }
 
 /* Header end */
@@ -80,28 +109,32 @@ header{
     grid-column: 3/10;
     margin-bottom: 5rem;
 }
+.bio-wrapper{
+    isolation: isolate;
+}
 .bio-wrapper h1{
     position: relative;
     left: 10%;
-    font-size: 4rem;
-    line-height: 5rem;
+    font-size: clamp(2rem, 1.375rem + 2.36vw, 4rem);
+    line-height: 1.2;
 }
 .bio-wrapper h1 span{
-    font-family: var(--font-b);
-    font-size: 7rem;
+    font-weight: 800;
+    font-size: clamp(3rem, 1.75rem + 4.73vw, 7rem);
 }
 .bio-photo{
     position: relative;
     width: 70%;
+    height: auto;
     left: 30%;
     top: -2.5rem;
     z-index: -1;
 }
 .bio-body{
-    font-size: 4rem;
+    font-size: clamp(2rem, 1.375rem + 2.36vw, 4rem);
 }
 .bio-body span{
-    font-family: var(--font-i);
+    font-style: italic;
     position: relative;
 }
 .bio-body span::before{
@@ -112,44 +145,24 @@ header{
     bottom: 0;
     left: 0;
     z-index: -1;
-    background-color: #7BB7E2;
+    background-color: var(--color-accent);
 }
 
 @media screen and (max-width: 1440px){
     .bio-container{
         grid-column: 3/9;
     }
-    .bio-wrapper h1{
-        font-size: 3.5rem;
-        line-height: 4rem;
-    }
-    .bio-wrapper h1 span{
-        font-size: 6rem;
-    }
     .bio-photo{
         width: 65%;
-    }
-    .bio-body{
-        font-size: 3.5rem;
     }
 }
 @media screen and (max-width: 1024px){
     .bio-container{
         grid-column: 2/8;
     }
-    .bio-wrapper h1{
-        font-size: 3rem;
-        line-height: 3.5rem;
-    }
-    .bio-wrapper h1 span{
-        font-size: 5rem;
-    }
     .bio-photo{
         width: 70%;
         top: -2rem;
-    }
-    .bio-body{
-        font-size: 3rem;
     }
 }
 @media screen and (max-width: 768px){
@@ -161,53 +174,27 @@ header{
         flex-direction: column;
         align-items: center;
     }
-
     .bio-wrapper h1{
-        font-size: 2.5rem;
-        line-height: 3rem;
         left: 0;
-    }
-    .bio-wrapper h1 span{
-        font-size: 4rem;
-        
     }
     .bio-photo{
         width: 90%;
         top: -1.5rem;
         left: 0;
-
-    }
-    .bio-body{
-        font-size: 2.5rem;
     }
 }
 @media screen and (max-width: 425px){
     .bio-container{
         grid-column: 1/-1;
     }
-    .bio-wrapper{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     .bio-wrapper h1{
-        font-size: 2rem;
-        line-height: 2rem;
-        left: 0;
-    }
-    .bio-wrapper h1 span{
-        font-size: 3rem;
-        
+        line-height: 1;
     }
     .bio-photo{
         width: 80%;
         top: -1rem;
-        left: 0;
-
     }
     .bio-body{
-        font-size: 2rem;
         padding: 0rem 2rem;
     }
 }
@@ -222,9 +209,9 @@ header{
     justify-self: center;
     margin: 5rem 0rem 3rem 0rem;
 }
-.projects-wrapper h1{
+.projects-wrapper h2{
     text-align: center;
-    font-size: 6rem;
+    font-size: clamp(3rem, 1.6rem + 5.34vw, 6rem);
 }
 .project-items{
     position: relative;
@@ -238,24 +225,32 @@ header{
 .project-item{
     width: 45%;
 }
-.project-item img{
+.project-image{
+    display: block;
     box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 100%;
+    height: auto;
 }
 .project-links{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     margin-top: .5rem;
 }
-.more-info, .visit-project{
+.project-title{
+    font-size: 1rem;
+}
+.visit-project{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: .5rem;
-    font-family: var(--font-i);
-    color: #151617;
+    font-family: var(--font-family);
+    font-style: italic;
+    color: var(--color-ink);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 1440px){
@@ -266,9 +261,6 @@ header{
 @media screen and (max-width: 1024px){
     .project-container{
         grid-column: 2/8;
-    }
-    .projects-wrapper h1{
-        font-size: 5rem;
     }
     .project-items{
         padding: 5rem 0rem;
@@ -281,9 +273,6 @@ header{
     .project-container{
         grid-column: 2/6;
     }
-    .projects-wrapper h1{
-        font-size: 4rem;
-    }
     .project-item{
         width: 100%;
     }
@@ -292,9 +281,6 @@ header{
     .project-container{
         grid-column: 1/-1;
         padding: 0rem 2rem;
-    }
-    .projects-wrapper h1{
-        font-size: 3rem;
     }
 }
 
@@ -307,9 +293,9 @@ header{
     margin-bottom: 5rem;
   }
   #contact-title {
-    font-family: var(--font-b);
-    font-size: 6rem;
-    color: rgb(var(--d-color));
+    font-weight: 800;
+    font-size: clamp(3rem, 1.6rem + 5.34vw, 6rem);
+    color: var(--color-ink);
     text-align: center;
     margin-bottom: 5rem;
   }
@@ -317,17 +303,34 @@ header{
     list-style-type: none;
   }
   .contact li {
-    font-size: 4.5ch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem 1rem;
+    font-size: clamp(1rem, 2.5vw, 2.25rem);
     border-bottom: 2px solid;
     padding: 1rem 0rem 1rem 0rem;
-    color: rgb(var(--d-color));
+    color: var(--color-ink);
   }
   .contact li span {
-    float: right;
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
   .contact li a {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
     text-decoration: none;
-    color: rgb(var(--d-color));
+    color: var(--color-ink);
+  }
+  .contact li a:hover{
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 3px;
+  }
+  .contact li a svg{
+    flex-shrink: 0;
   }
 
   @media screen and (max-width: 1440px){
@@ -339,31 +342,16 @@ header{
     .contact{
         grid-column: 2/8;
     }
-    #contact-title{
-        font-size: 5rem;
-    }
-    .contact li{
-        font-size: 1.5rem;
-    }
 }
 @media screen and (max-width: 768px){
     .contact{
         grid-column: 1/-1;
         padding: 0rem 3rem;
     }
-    #contact-title{
-        font-size: 4rem;
-    }
-    .contact li{
-        font-size: 1rem;
-    }
 }
 @media screen and (max-width: 425px){
     .contact{
         padding: 0rem 2rem;
-    }
-    #contact-title{
-        font-size: 3rem;
     }
 }
 
@@ -376,4 +364,8 @@ footer{
     grid-column: 1/-1;
     justify-self: center;
     margin: 1rem 0rem 1rem 0rem;
+}
+footer p{
+    font-size: .83rem;
+    font-weight: 800;
 }
