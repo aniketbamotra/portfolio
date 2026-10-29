@@ -15,7 +15,9 @@ npm run preview  # serve the production build locally
 ## Structure
 
 - `src/components/` — page sections (`TopMenu`, `Bio`, `Projects`, `Contact`, `Copy`) and shared pieces
-- `src/components/Projects.jsx` — add or edit projects in the `projects` array
+- `src/components/projects/projectsData.js` — add or edit projects in the `projects` array
+- `src/components/case-study/` — case study building blocks; each case study is its own HTML entry (e.g. `compliance-platform/index.html`, registered in `vite.config.js`)
+- `src/assets/case-studies/<slug>/` — case study frames; a correctly named file replaces its placeholder
 - `src/assets/images/` — images (WebP, ~1600px wide for project screenshots)
 - `src/assets/fonts/hagrid/` — Hagrid font (WOFF2) and its license
 

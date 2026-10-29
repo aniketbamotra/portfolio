@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ExternalLinkIcon from "../ExternalLinkIcon";
+import ArrowIcon from "../ArrowIcon";
 import { projects, metaFor, linkProps, useMedia } from "./projectsData";
 
 // Must match the media query that pins .stage-track in projects.css.
@@ -108,7 +109,7 @@ const ProjectsStage = ({ heading }) => {
               ))}
             <span className="stage-caption highlight">
               {metaFor(projects[active])}
-              <ExternalLinkIcon />
+              {projects[active].caseStudy ? <ArrowIcon /> : <ExternalLinkIcon />}
             </span>
           </a>
         </div>

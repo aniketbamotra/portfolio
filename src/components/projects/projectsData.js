@@ -5,11 +5,26 @@ import purebet from "../../assets/images/purebet.webp";
 import keploy from "../../assets/images/keploy.webp";
 import gemx from "../../assets/images/gemx.webp";
 import dcj from "../../assets/images/dcj.webp";
+import { frameSrc, placeholderImage } from "../case-study/frames";
 
 // role and year are optional; when both are missing a project shows its domain.
+// caseStudy marks a project whose url is a page on this site rather than an
+// external link; summary is its one-line pitch for social cards.
 // mobileImage is an optional 4:5 portrait image for phones; until one is set,
 // the desktop screenshot is cropped to fit.
 export const projects = [
+  {
+    title: "Compliance Platform",
+    image:
+      frameSrc("compliance-platform", "cover") ??
+      placeholderImage("cover.png", 1600, 900),
+    url: "/compliance-platform/",
+    caseStudy: true,
+    role: "Design Technologist",
+    year: "2025",
+    summary:
+      "I designed and built the frontend of a compliance platform. It takes product safety certification for a large US retailer from email-and-Excel to an automated pipeline that handles 10,000–25,000 purchase orders a week.",
+  },
   {
     title: "Immersive Bionic",
     image: immersiveBionic,
@@ -42,16 +57,22 @@ export const projects = [
   },
 ];
 
-export const metaFor = ({ role, year, url }) =>
-  [role, year].filter(Boolean).join(" · ") ||
+export const metaFor = ({ caseStudy, role, year, url }) =>
+  [caseStudy && "Case study", role, year].filter(Boolean).join(" · ") ||
   new URL(url).hostname.replace(/^www\./, "");
 
-export const linkProps = (project) => ({
-  href: project.url,
-  target: "_blank",
-  rel: "noopener noreferrer",
-  "aria-label": `${project.title}, ${metaFor(project)} (opens in a new tab)`,
-});
+export const linkProps = (project) =>
+  project.caseStudy
+    ? {
+        href: project.url,
+        "aria-label": `${project.title}, ${metaFor(project)}`,
+      }
+    : {
+        href: project.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": `${project.title}, ${metaFor(project)} (opens in a new tab)`,
+      };
 
 export const useMedia = (query) => {
   const [matches, setMatches] = useState(

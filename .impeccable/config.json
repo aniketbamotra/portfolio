@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/case-study/compliance-platform/diagrams.css"
+        ],
+        "createdAt": "2026-10-29T13:34:31.854Z",
+        "reason": "agent: both hits are CSS-triangle arrowheads on zero-size pseudo-elements in diagram 1 (loop and exception branch), not card borders"
+      }
+    ]
+  }
+}
