@@ -1,7 +1,7 @@
 /* Header start */
 
 header{
-    padding: 3rem 3rem 7rem 3rem;
+    padding: 3rem 3rem var(--space-xl) 3rem;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -78,12 +78,12 @@ header{
 }
 @media screen and (max-width: 768px) {
     header{
-        padding: 2rem 2rem 7rem 2rem;
+        padding: 2rem 2rem var(--space-xl) 2rem;
     }
 }
 @media screen and (max-width: 425px) {
     header{
-        padding: 2rem 1rem 7rem 1rem;
+        padding: 2rem 1rem var(--space-xl) 1rem;
     }
     .logo{
         width: 3rem;
@@ -107,7 +107,7 @@ header{
 
 .bio-container{
     grid-column: 3/10;
-    margin-bottom: 5rem;
+    margin-bottom: var(--space-section);
 }
 .bio-wrapper{
     isolation: isolate;
@@ -201,103 +201,17 @@ header{
 
 /* Bio section end */
 
-/* Project section start */
-
-.project-container{
-    grid-column: 2/12;
-    align-self: center;
-    justify-self: center;
-    margin: 5rem 0rem 3rem 0rem;
-}
-.projects-wrapper h2{
-    text-align: center;
-    font-size: clamp(3rem, 1.6rem + 5.34vw, 6rem);
-}
-.project-items{
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4rem;
-    justify-content: center;
-    align-items: center;
-    padding: 10rem 0rem;
-}
-.project-item{
-    width: 45%;
-}
-.project-image{
-    display: block;
-    box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    height: auto;
-}
-.project-links{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-top: .5rem;
-}
-.project-title{
-    font-size: 1rem;
-}
-.visit-project{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    font-family: var(--font-family);
-    font-style: italic;
-    color: var(--color-ink);
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-@media screen and (max-width: 1440px){
-    .project-container{
-        grid-column: 2/10;
-    }
-}
-@media screen and (max-width: 1024px){
-    .project-container{
-        grid-column: 2/8;
-    }
-    .project-items{
-        padding: 5rem 0rem;
-    }
-    .project-item{
-        width: 90%;
-    }
-}
-@media screen and (max-width: 768px){
-    .project-container{
-        grid-column: 2/6;
-    }
-    .project-item{
-        width: 100%;
-    }
-}
-@media screen and (max-width: 425px){
-    .project-container{
-        grid-column: 1/-1;
-        padding: 0rem 2rem;
-    }
-}
-
-/* Project Section end */
+/* Project section styles live in projects/projects.css */
 
 /* Contact Section start */
 
   .contact {
     grid-column: 2/12;
-    margin-bottom: 5rem;
+    margin-bottom: var(--space-section);
   }
   #contact-title {
     font-weight: 800;
-    font-size: clamp(3rem, 1.6rem + 5.34vw, 6rem);
     color: var(--color-ink);
-    text-align: center;
-    margin-bottom: 5rem;
   }
   .contact-list{
     list-style-type: none;
@@ -309,8 +223,8 @@ header{
     align-items: center;
     gap: .5rem 1rem;
     font-size: clamp(1rem, 2.5vw, 2.25rem);
-    border-bottom: 2px solid;
-    padding: 1rem 0rem 1rem 0rem;
+    border-bottom: 1px solid;
+    padding: 1.5rem 0rem;
     color: var(--color-ink);
   }
   .contact li span {
@@ -363,7 +277,7 @@ header{
 footer{
     grid-column: 1/-1;
     justify-self: center;
-    margin: 1rem 0rem 1rem 0rem;
+    margin: 0rem 0rem 3rem 0rem;
 }
 footer p{
     font-size: .83rem;

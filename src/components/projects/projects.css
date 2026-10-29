@@ -1,0 +1,152 @@
+/* Project section start */
+
+.project-container{
+    grid-column: 2/12;
+    margin-bottom: var(--space-section);
+}
+.project-container a,
+.project-container a:hover{
+    color: var(--color-ink);
+    text-decoration: none;
+}
+@media screen and (max-width: 1440px){
+    .project-container{
+        grid-column: 2/10;
+    }
+}
+@media screen and (max-width: 1024px){
+    .project-container{
+        grid-column: 2/8;
+    }
+}
+@media screen and (max-width: 768px){
+    .project-container{
+        grid-column: 1/-1;
+        padding: 0rem 3rem;
+    }
+}
+@media screen and (max-width: 425px){
+    .project-container{
+        padding: 0rem 2rem;
+    }
+}
+
+/* Small screens: each name followed by its own screenshot. */
+
+.stage-list{
+    list-style: none;
+    display: grid;
+    row-gap: var(--space-xl);
+}
+.project-container .stage-link{
+    display: block;
+}
+.stage-title{
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.5rem);
+    line-height: 1.15;
+    color: inherit;
+}
+.stage-meta{
+    display: block;
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: var(--color-ink-muted);
+}
+.stage-thumb{
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 1.25rem;
+}
+.stage-screen{
+    display: none;
+}
+
+/* Wide screens: the stage pins while the track scrolls past, one stretch of
+   scroll per project, then the page carries on. Keep in sync with PIN_QUERY. */
+
+@media (min-width: 769px) and (min-height: 640px){
+    .stage-track{
+        height: calc(100svh + var(--count) * 60svh);
+    }
+    .stage-pin{
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .stage-pin .section-title{
+        margin-bottom: clamp(2.5rem, 7vh, 5rem);
+    }
+    .stage{
+        display: grid;
+        grid-template-columns: 4fr 7fr;
+        gap: clamp(3rem, 6vw, 8rem);
+        align-items: center;
+    }
+    .stage-list{
+        row-gap: 0;
+    }
+    .project-container .stage-link{
+        padding: .6rem 0rem;
+        /* Lighter than --color-ink-muted so the project on stage stands out;
+           still 3:1 at this large size. */
+        color: rgba(16, 0, 27, 0.45);
+        transition: color .3s ease;
+    }
+    .project-container .stage-link:hover,
+    .project-container .stage-link[aria-current="true"]{
+        color: var(--color-ink);
+    }
+    /* Only the project on stage gets the highlighter. */
+    .stage-link:not([aria-current="true"]):hover .sweep{
+        background-size: 0% 25%;
+    }
+    .stage-meta,
+    .stage-thumb{
+        display: none;
+    }
+    .stage-screen{
+        display: grid;
+    }
+    .stage-screen img{
+        grid-area: 1 / 1;
+        display: block;
+        width: 100%;
+        height: auto;
+        opacity: 0;
+        transition: opacity .45s ease;
+    }
+    .stage-screen img.is-active{
+        opacity: 1;
+    }
+    .stage-caption{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .5rem;
+        margin-top: 1rem;
+        font-size: clamp(.875rem, .8rem + .3vw, 1.125rem);
+        color: var(--color-ink-muted);
+    }
+    .stage-caption svg{
+        width: 1rem;
+        height: auto;
+    }
+    .stage-progress{
+        height: 1px;
+        margin-top: clamp(2rem, 6vh, 4rem);
+        background-color: rgba(16, 0, 27, 0.12);
+    }
+    .stage-progress span{
+        display: block;
+        height: 100%;
+        background-color: var(--color-ink);
+        transform-origin: left;
+        transition: scale .5s var(--ease-out);
+    }
+}
+
+/* Project Section end */
