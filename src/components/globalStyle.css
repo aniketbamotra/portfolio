@@ -1,26 +1,37 @@
 @font-face {
     font-family: "Hagrid";
-    src: url(../assets/fonts/hagrid/Hagrid-Regular-trial.ttf);
+    src: url(../assets/fonts/hagrid/Hagrid-Regular-trial.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-    font-family: "Hagrid-i";
-    src: url(../assets/fonts/hagrid/Hagrid-Italic-trial.ttf);
+    font-family: "Hagrid";
+    src: url(../assets/fonts/hagrid/Hagrid-Italic-trial.woff2) format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
 }
 @font-face {
-    font-family: "Hagrid-b";
-    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-trial.ttf);
+    font-family: "Hagrid";
+    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-trial.woff2) format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-    font-family: "Hagrid-bi";
-    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-Italic-trial.ttf);
+    font-family: "Hagrid";
+    src: url(../assets/fonts/hagrid/Hagrid-Text-Extrabold-Italic-trial.woff2) format("woff2");
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
 }
-  
+
 :root {
-    --font-r: Hagrid;
-    --font-i: Hagrid-i;
-    --font-b: Hagrid-b;
-    --font-bi: Hagrid-bi;
-    --d-color: 16, 0, 27;
+    --font-family: "Hagrid", "Helvetica Neue", Arial, sans-serif;
+    --color-ink: #10001b;
+    --color-accent: #7bb7e2;
+    --color-bg: #ffffff;
 }
 
 html {
@@ -28,18 +39,19 @@ html {
 }
 
 .font {
-    font-family: var(--font-r);
-    font-weight: normal;
-    color: #151617;
+    font-family: var(--font-family);
+    font-weight: 400;
+    color: var(--color-ink);
   }
   .font-b {
-    font-family: var(--font-b);
-    font-weight: normal;
-    color: #151617;
-  }  
+    font-family: var(--font-family);
+    font-weight: 800;
+    color: var(--color-ink);
+  }
   .highlight {
-    font-family: var(--font-i);
-    color: #151617;
+    font-family: var(--font-family);
+    font-style: italic;
+    color: var(--color-ink);
   }
 
 *{
@@ -49,28 +61,53 @@ html {
 }
 body{
     overflow-x: hidden;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+}
+a:hover{
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--color-ink);
+    outline-offset: 4px;
 }
 .grid-container{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
-@media screen and (max-width: 1440px) {    
+.main-content{
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: subgrid;
+}
+@media screen and (max-width: 1440px) {
     .grid-container{
         grid-template-columns: repeat(10, 1fr);
     }
 }
-@media screen and (max-width: 1024px) {    
+@media screen and (max-width: 1024px) {
     .grid-container{
         grid-template-columns: repeat(8, 1fr);
     }
 }
-@media screen and (max-width: 768px) {    
+@media screen and (max-width: 768px) {
     .grid-container{
         grid-template-columns: repeat(6, 1fr);
     }
 }
-@media screen and (max-width: 425px) {    
+@media screen and (max-width: 425px) {
     .grid-container{
         grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html{
+        scroll-behavior: auto;
+    }
+    *, *::before, *::after{
+        transition-duration: 0.01ms !important;
     }
 }

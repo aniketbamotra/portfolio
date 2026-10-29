@@ -1,8 +1,24 @@
-# React + Vite
+# Aniket Bamotra — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site built with React and Vite. Live at [aneeek.com](https://aneeek.com).
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm install
+npm run dev      # start the dev server
+npm run lint     # run ESLint
+npm run build    # production build to dist/
+npm run preview  # serve the production build locally
+```
+
+## Structure
+
+- `src/components/` — page sections (`TopMenu`, `Bio`, `Projects`, `Contact`, `Copy`) and shared pieces
+- `src/components/Projects.jsx` — add or edit projects in the `projects` array
+- `src/assets/images/` — images (WebP, ~1600px wide for project screenshots)
+- `src/assets/fonts/hagrid/` — Hagrid font (WOFF2) and its license
+
+## Font license
+
+Hagrid is used under the license in `src/assets/fonts/hagrid/Hagrid-Family-CC-BY-NCLicensepdf.pdf` (CC BY-NC, trial files).
