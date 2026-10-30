@@ -12,15 +12,9 @@ import { drafts } from "../../case-studies/drafts";
 // caseStudy marks a project whose url is a page on this site rather than an
 // external link; summary is its one-line pitch for social cards.
 // Case studies listed in src/case-studies/drafts.js only show in dev.
-// draftOf marks an older entry that stands in for a draft case study in
-// production, and goes once the case study is published.
 // mobileImage is an optional 4:5 portrait image for phones; until one is set,
 // the desktop screenshot is cropped to fit.
 const isDraft = ({ url }) => drafts.some((slug) => url === `/${slug}/`);
-const isShown = (project) =>
-  project.draftOf
-    ? !import.meta.env.DEV && drafts.includes(project.draftOf)
-    : import.meta.env.DEV || !isDraft(project);
 
 export const projects = [
   {
@@ -53,12 +47,6 @@ export const projects = [
       "A VR prototype that lets upper-limb amputees try a myoelectric prosthetic arm, controlled by their own muscle signals, before they ever own one.",
   },
   {
-    title: "Immersive Bionic",
-    image: immersiveBionic,
-    url: "https://www.behance.net/gallery/174224683/Immersive-Bionic",
-    draftOf: "immersive-bionic",
-  },
-  {
     title: "Keploy",
     image: keploy,
     url: "https://keploy.io/",
@@ -78,7 +66,7 @@ export const projects = [
     image: dcj,
     url: "https://demandclimatejustice.org/",
   },
-].filter(isShown);
+].filter((project) => import.meta.env.DEV || !isDraft(project));
 
 export const metaFor = ({ caseStudy, role, year, url }) =>
   [caseStudy && "Case study", role, year].filter(Boolean).join(" · ") ||
