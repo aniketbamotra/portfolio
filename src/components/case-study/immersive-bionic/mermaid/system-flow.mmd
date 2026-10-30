@@ -1,0 +1,5 @@
+%% DIAGRAM-1: System flow. Drawn by SystemFlow in ../Diagrams.jsx.
+flowchart LR
+  S[Muscle sensor<br/>EMG] --> E[ESP32<br/>analog → digital<br/>process · normalise]
+  E -->|Wi-Fi| N[Node.js server<br/>receive · relay<br/>REST API]
+  N --> V[Unity VR app<br/>open / close<br/>virtual arm]

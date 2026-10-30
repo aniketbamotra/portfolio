@@ -1,0 +1,531 @@
+/* Diagrams for the PsyMatch case study, on the shared nodes and arrows in
+   caseStudy.css. A tint marks AI steps; ink marks what the clinician gets. */
+
+.j,
+.pv,
+.rf{
+    --arrow-right-dashed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h22.5' fill='none' stroke='black' stroke-width='1.5' stroke-dasharray='3 2.5'/%3E%3Cpath d='M18 1.5l4.5 4.5-4.5 4.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+    --arrow-up-dashed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 24'%3E%3Cpath d='M6 24V1.5' fill='none' stroke='black' stroke-width='1.5' stroke-dasharray='3 2.5'/%3E%3Cpath d='M1.5 6l4.5-4.5 4.5 4.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+    --arrow-left-dashed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M24 6H1.5' fill='none' stroke='black' stroke-width='1.5' stroke-dasharray='3 2.5'/%3E%3Cpath d='M6 1.5L1.5 6 6 10.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+    --arrow-down-dashed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 24'%3E%3Cpath d='M6 0v22.5' fill='none' stroke='black' stroke-width='1.5' stroke-dasharray='3 2.5'/%3E%3Cpath d='M1.5 18l4.5 4.5 4.5-4.5' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+.d-node.is-rule{
+    border-width: 1.5px;
+}
+.d-node.is-ink .d-tag{
+    color: inherit;
+    opacity: .75;
+}
+
+/* 1 · Journey: three lanes, stacked on phones and side by side once the
+   figure has room. Links between lanes carry the hand-offs. */
+
+.j-lanes{
+    /* Step centres, from the top of a lane: a title, then 3.25rem nodes
+       5.25rem apart. The links between lanes line up on these. */
+    --first-step: 4.125rem;
+    --second-step: 9.375rem;
+    display: flex;
+    flex-direction: column;
+}
+.j-title{
+    margin-bottom: .75rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--color-ink);
+}
+.j-steps{
+    display: flex;
+    flex-direction: column;
+}
+.j-lane{
+    position: relative;
+}
+/* The loop: out of the last step's side, back up into the one before. */
+.j-lane.has-loop .j-steps{
+    padding-right: 1.75rem;
+}
+.j-lane.has-loop .d-step:last-child{
+    position: relative;
+}
+.j-lane.has-loop .d-step:last-child::after{
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: -1rem;
+    bottom: 1.625rem;
+    width: 1rem;
+    border: 1.5px dashed var(--color-ink);
+    border-left: 0;
+    border-radius: 0 .5rem .5rem 0;
+}
+.j-lane.has-loop .d-step:last-child .d-node{
+    position: relative;
+}
+.j-lane.has-loop .d-step:last-child .d-node::after{
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: calc(-3rem - 4.25px);
+    border-block: 5px solid transparent;
+    border-right: 7px solid var(--color-ink);
+}
+.j-loop{
+    position: absolute;
+    right: 0;
+    bottom: 1.75rem;
+    padding: .25rem 0;
+    writing-mode: vertical-rl;
+    font-size: .85em;
+    color: var(--color-ink-muted);
+    background-color: var(--color-bg);
+}
+/* The director feeds "Assign interviews" from the side on phones, and from
+   below once the lanes sit side by side. */
+.j-lane.has-director{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+}
+.has-director .j-title{
+    grid-column: 1 / -1;
+    align-self: start;
+}
+.j-director{
+    display: flex;
+    align-items: center;
+}
+.j-director::before{
+    content: "";
+    flex: none;
+    width: 1.5rem;
+    height: .75rem;
+    margin: 0 .25rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-left-dashed) center / contain no-repeat;
+    mask: var(--arrow-left-dashed) center / contain no-repeat;
+}
+.j-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    margin: 1rem 0 1.25rem;
+}
+.j-arrow{
+    flex: none;
+    width: .75rem;
+    height: 1.75rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-down) center / contain no-repeat;
+    mask: var(--arrow-down) center / contain no-repeat;
+}
+.j-link.is-live .j-arrow{
+    -webkit-mask-image: var(--arrow-down-dashed);
+    mask-image: var(--arrow-down-dashed);
+}
+.j-link-label{
+    font-size: .9em;
+    color: var(--color-ink-muted);
+}
+
+@container (min-width: 600px){
+    .j-lanes{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .j-lane{
+        flex: 1 1 0;
+        min-width: 0;
+    }
+    .j-lane.has-director{
+        display: block;
+    }
+    .j-director{
+        flex-direction: column;
+    }
+    .j-director::before{
+        width: .75rem;
+        height: 1.5rem;
+        margin: .25rem 0;
+        -webkit-mask-image: var(--arrow-up-dashed);
+        mask-image: var(--arrow-up-dashed);
+    }
+    .j-link{
+        flex: none;
+        flex-direction: column;
+        width: 2.75rem;
+        margin: calc(var(--first-step) - .375rem) 0 0;
+    }
+    .j-link.is-live{
+        width: 4.75rem;
+    }
+    /* Both hand-offs leave the second step of one lane and enter the first
+       of the next: "Assign interviews" to "Email invite", and "Complete
+       interviews" to "Track progress". */
+    .j-link.is-elbow{
+        position: relative;
+        display: block;
+        height: calc(var(--second-step) - var(--first-step));
+        margin-top: var(--first-step);
+    }
+    .j-link.is-elbow::before{
+        content: "";
+        position: absolute;
+        left: .25rem;
+        width: calc(50% - .25rem);
+        top: -.75px;
+        bottom: -.75px;
+        border-right: 1.5px solid var(--color-ink);
+        border-bottom: 1.5px solid var(--color-ink);
+    }
+    .j-link.is-elbow .j-arrow{
+        position: absolute;
+        left: calc(50% - .75px);
+        right: .25rem;
+        top: -.375rem;
+        width: auto;
+        -webkit-mask: var(--arrow-right) right center / auto 100% no-repeat;
+        mask: var(--arrow-right) right center / auto 100% no-repeat;
+    }
+    /* Starts at the box itself, across the loop's gutter in the patient lane. */
+    .j-link.is-elbow.is-live::before{
+        left: -1.75rem;
+        width: calc(50% + 1.75rem);
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+    }
+    .j-link.is-elbow.is-live .j-arrow{
+        -webkit-mask-image: var(--arrow-right-dashed);
+        mask-image: var(--arrow-right-dashed);
+    }
+    .j-link.is-elbow .j-link-label{
+        position: absolute;
+        top: calc(100% + .5rem);
+        left: 0;
+        right: 0;
+    }
+    .j-arrow{
+        width: 1.75rem;
+        height: .75rem;
+        -webkit-mask-image: var(--arrow-right);
+        mask-image: var(--arrow-right);
+    }
+    .j-link.is-live .j-arrow{
+        -webkit-mask-image: var(--arrow-right-dashed);
+        mask-image: var(--arrow-right-dashed);
+    }
+    .j-link-label{
+        text-align: center;
+        line-height: 1.2;
+    }
+}
+
+/* 2 · Privacy pipeline: answers split into the rule engine and layer 1,
+   merge into layer 2, and only then reach the model. */
+
+.pv-flow{
+    --split-gap: .75rem;
+}
+.pv-arrow{
+    position: relative;
+    display: block;
+    flex: none;
+    align-self: center;
+    justify-self: center;
+    width: .75rem;
+    height: 1.5rem;
+    margin: .25rem 0;
+}
+.pv-arrow::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-down) center / contain no-repeat;
+    mask: var(--arrow-down) center / contain no-repeat;
+}
+.pv-label{
+    position: absolute;
+    font-size: .9em;
+    line-height: 1;
+    color: var(--color-ink-muted);
+    white-space: nowrap;
+}
+.pv-source{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pv-source .d-node{
+    max-width: 16rem;
+}
+.pv-source::after{
+    content: "";
+    width: 1.5px;
+    height: 1rem;
+    background-color: var(--color-ink);
+}
+/* Bars out of the source and into layer 2 run between the two branch
+   centres. */
+.pv-split{
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: var(--split-gap);
+}
+.pv-split::before,
+.pv-split::after{
+    content: "";
+    position: absolute;
+    left: calc((100% - var(--split-gap)) * .2);
+    right: calc((100% - var(--split-gap)) * .3);
+    border-top: 1.5px solid var(--color-ink);
+}
+.pv-split::before{
+    top: 0;
+}
+.pv-split::after{
+    bottom: 0;
+}
+.pv-branch{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.pv-rail{
+    flex: 1 0 1rem;
+    align-self: center;
+    width: 1.5px;
+    background-color: var(--color-ink);
+}
+.pv-zone{
+    padding: .75rem;
+    background-color: var(--cs-tint);
+    border: 1px solid var(--cs-line);
+}
+.pv-zone-title{
+    margin-bottom: .6rem;
+    color: var(--color-ink-muted);
+}
+.pv-zone ol{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Layer 2 and after, on one grid so the "yes" branch and the zone's box line
+   up with the main column. The box is an empty cell behind rows 2 to 5. */
+.pv-tokens{
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) 3rem minmax(0, 1.25fr);
+    padding: 0 .75rem;
+}
+.pv-tokens > *{
+    grid-column: 1;
+}
+.pv-zone-box{
+    grid-row: 2 / 6;
+    grid-column: 1 / -1;
+    margin: 0 -.75rem -.75rem;
+    padding: 0;
+}
+.pv-tokens-title{
+    grid-row: 2;
+    grid-column: 1 / -1;
+    padding-top: .75rem;
+}
+.pv-check{
+    grid-row: 5;
+}
+.pv-yes{
+    position: relative;
+    grid-row: 5;
+    grid-column: 2;
+    align-self: center;
+    height: .75rem;
+}
+.pv-yes::before{
+    content: "";
+    position: absolute;
+    left: .25rem;
+    right: .5rem;
+    top: calc(50% - .75px);
+    border-top: 1.5px solid var(--color-ink);
+}
+.pv-yes::after{
+    content: "";
+    position: absolute;
+    right: .25rem;
+    top: 0;
+    width: 1rem;
+    height: .75rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-right) right center / contain no-repeat;
+    mask: var(--arrow-right) right center / contain no-repeat;
+}
+.pv-yes .pv-label{
+    bottom: calc(100% + .3rem);
+    left: 50%;
+    translate: -50% 0;
+}
+.pv-blocked{
+    grid-row: 5;
+    grid-column: 3;
+}
+.pv-no{
+    height: 1.75rem;
+    margin-top: 1rem;
+}
+.pv-no .pv-label{
+    left: calc(100% + .4rem);
+    top: 50%;
+    translate: 0 -50%;
+}
+.pv .d-legend{
+    margin-top: 1.5rem;
+}
+
+/* 3 · Report family: a rail out of the comprehensive report, one branch per
+   format, each translating across. */
+
+.rf-tree{
+    --tick: 1.25rem;
+    --indent: 7rem;
+    --node-h: 3.25rem;
+}
+.rf-row{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 6rem minmax(0, 1fr);
+    align-items: start;
+}
+.rf-root{
+    margin-top: 2rem;
+}
+.rf-root .d-node{
+    position: relative;
+}
+.rf-root .d-node::before{
+    content: "";
+    position: absolute;
+    bottom: calc(100% + .25rem);
+    left: calc(50% - .375rem);
+    width: .75rem;
+    height: 1.5rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-down) center / contain no-repeat;
+    mask: var(--arrow-down) center / contain no-repeat;
+}
+.rf-tree ol{
+    display: grid;
+    gap: .75rem;
+    padding-top: 1rem;
+}
+.rf-branch{
+    position: relative;
+}
+.rf-branch::before{
+    content: "";
+    position: absolute;
+    left: var(--tick);
+    top: -1rem;
+    bottom: -.75rem;
+    border-left: 1.5px solid var(--color-ink);
+}
+.rf-branch:last-child::before{
+    bottom: auto;
+    height: calc(1rem + var(--node-h) / 2);
+}
+.rf-en{
+    position: relative;
+    padding-left: var(--indent);
+}
+.rf-en::before{
+    content: "";
+    position: absolute;
+    left: var(--tick);
+    right: calc(100% - var(--indent) + .25rem);
+    top: calc(var(--node-h) / 2 - .75px);
+    border-top: 1.5px solid var(--color-ink);
+}
+.rf-en::after{
+    content: "";
+    position: absolute;
+    left: calc(var(--indent) - 1.25rem);
+    top: calc(var(--node-h) / 2 - .375rem);
+    width: 1rem;
+    height: .75rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-right) right center / contain no-repeat;
+    mask: var(--arrow-right) right center / contain no-repeat;
+}
+.rf-verb,
+.rf-translate .highlight{
+    font-size: .9em;
+    line-height: 1;
+    color: var(--color-ink-muted);
+}
+.rf-verb{
+    position: absolute;
+    left: calc(var(--tick) + .4rem);
+    bottom: calc(100% - var(--node-h) / 2 + .35rem);
+}
+.rf-translate{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: calc(var(--node-h) / 2 - .35rem);
+}
+.rf-translate::before{
+    content: "";
+    position: absolute;
+    left: .5rem;
+    right: .75rem;
+    top: calc(100% + .35rem - .75px);
+    border-top: 1.5px solid var(--color-ink);
+}
+.rf-translate::after{
+    content: "";
+    position: absolute;
+    right: .5rem;
+    top: calc(100% + .35rem - .375rem);
+    width: 1rem;
+    height: .75rem;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--arrow-right) right center / contain no-repeat;
+    mask: var(--arrow-right) right center / contain no-repeat;
+}
+
+/* Too narrow for English and French side by side: each French version drops
+   under its English one, still inside the rail. */
+@container (max-width: 559px){
+    .rf-row{
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .rf-translate,
+    .rf-branch > .d-node{
+        width: auto;
+        margin-left: var(--indent);
+    }
+    .rf-translate{
+        align-items: center;
+        height: 2.25rem;
+    }
+    /* Centred like the arrow, then moved just clear of it. */
+    .rf-translate .highlight{
+        translate: calc(50% + .9rem) 0;
+    }
+    .rf-translate::before{
+        display: none;
+    }
+    .rf-translate::after{
+        left: calc(50% - .375rem);
+        right: auto;
+        top: .25rem;
+        width: .75rem;
+        height: 1.75rem;
+        -webkit-mask-image: var(--arrow-down);
+        mask-image: var(--arrow-down);
+        -webkit-mask-position: center;
+        mask-position: center;
+    }
+}

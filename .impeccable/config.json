@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-29T13:34:31.854Z",
         "reason": "agent: both hits are CSS-triangle arrowheads on zero-size pseudo-elements in diagram 1 (loop and exception branch), not card borders"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/case-study/psymatch/diagrams.css"
+        ],
+        "createdAt": "2026-10-29T19:01:43.462Z",
+        "reason": "agent: L64 is a CSS-triangle arrowhead on a zero-size pseudo-element (the journey diagram's continue loop), not a card border; same pattern already exempted in compliance-platform/diagrams.css"
       }
     ]
   }

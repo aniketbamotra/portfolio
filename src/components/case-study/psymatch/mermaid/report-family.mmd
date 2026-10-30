@@ -1,0 +1,10 @@
+%% DIAGRAM-3: Report family. Drawn by ReportFamily in ../Diagrams.jsx.
+flowchart LR
+  SR[Standard reports<br/>from clinic rules] --> CE[Comprehensive<br/>EN]
+  CE -->|condense| CO[Concise EN]
+  CE -->|letter| RE[Referral EN]
+  CE -->|summarize| PS[Patient summary EN]
+  CE -->|translate| CF[Comprehensive FR]
+  CO -->|translate| COF[Concise FR]
+  RE -->|translate| REF[Referral FR]
+  PS -->|translate| PSF[Patient summary FR]

@@ -2,7 +2,9 @@
 
 header{
     padding: 3rem 3rem var(--space-xl) 3rem;
-    overflow: hidden;
+    /* Clips the closed menu sideways only, so a long open list can hang
+       below the header. */
+    overflow-x: clip;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -58,10 +60,21 @@ header{
     color: var(--color-ink);
     text-decoration: none;
 }
-.slide-in-menu a:hover{
+.slide-in-menu a:hover,
+.slide-in-menu a[aria-current="page"]{
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
     text-decoration-thickness: 3px;
+}
+/* The project list on case study pages: long titles hang off the icon's
+   open-state right edge, and the list sits over the page as it opens. */
+.slide-in-menu.is-projects{
+    left: auto;
+    right: calc(var(--menu-icon-w) * 14 / 95);
+    padding-left: 1.5rem;
+    text-align: right;
+    white-space: nowrap;
+    background-color: var(--color-bg);
 }
 
 @media screen and (max-width: 1440px) {
