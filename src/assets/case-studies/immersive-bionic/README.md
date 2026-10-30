@@ -12,7 +12,3 @@ its width and height there (none of these is 16:10).
 The cover is the project's original screenshot,
 `src/assets/images/immersive-bionic.webp` (1600×900): projects listing card and
 social share image, not shown on the page.
-
-The page is a draft until `immersive-bionic` is removed from
-`src/case-studies/drafts.js`. Remove the Behance fallback entry (`draftOf`) in
-`src/components/projects/projectsData.js` at the same time.
