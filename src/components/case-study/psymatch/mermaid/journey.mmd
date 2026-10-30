@@ -1,0 +1,18 @@
+%% DIAGRAM-1: Intake-to-report journey. Drawn by Journey in ../Diagrams.jsx.
+flowchart LR
+  subgraph Clinic["Admin staff · onboarding"]
+    A1[Register patient] --> A2[Assign interviews<br/>one by one or from a set]
+  end
+  subgraph Patient["Patient"]
+    P1[Email invite<br/>set password] --> P2[Complete interviews<br/>EN / FR, narrated]
+    P2 --> P3[Thank you +<br/>next interview]
+    P3 -->|continue| P2
+  end
+  subgraph Reports["Admin staff · reporting"]
+    R1[Track progress<br/>on dashboard] --> R2[Review redaction<br/>profile]
+    R2 --> R3[Generate standard +<br/>AI-drafted reports]
+    R3 --> R4[Download PDF / Word<br/>for the therapist]
+  end
+  D[Clinic director<br/>sets, interview order,<br/>consent content] -.-> A2
+  A2 --> P1
+  P2 -. answers saved live .-> R1

@@ -2,15 +2,15 @@ import ArrowIcon from "../../ArrowIcon";
 import { Frame, Overview, Section, Stats } from "../CaseStudy";
 import CaseStudyNav from "../CaseStudyNav";
 import { AiPipeline, BeforeAfter, CacheLayers, SystemFlow } from "./Diagrams";
-import homeOverview from "../../../assets/case-studies/compliance-platform/01-home-overview.png";
-import workflowTracker from "../../../assets/case-studies/compliance-platform/02-workflow-tracker.png";
-import recordDetails from "../../../assets/case-studies/compliance-platform/03-record-details.png";
-import testReportValidation from "../../../assets/case-studies/compliance-platform/04-test-report-validation.png";
-import testReportsList from "../../../assets/case-studies/compliance-platform/05-test-reports-list.png";
-import cocList from "../../../assets/case-studies/compliance-platform/06-coc-list.png";
-import vendorProducts from "../../../assets/case-studies/compliance-platform/07-vendor-portal-products.png";
-import vendorUpload from "../../../assets/case-studies/compliance-platform/08-vendor-portal-upload.png";
-import vendorManufacturing from "../../../assets/case-studies/compliance-platform/09-vendor-portal-manufacturing.png";
+import homeOverview from "../../../assets/case-studies/compliance-platform/01-home-overview.webp";
+import workflowTracker from "../../../assets/case-studies/compliance-platform/02-workflow-tracker.webp";
+import recordDetails from "../../../assets/case-studies/compliance-platform/03-record-details.webp";
+import testReportValidation from "../../../assets/case-studies/compliance-platform/04-test-report-validation.webp";
+import testReportsList from "../../../assets/case-studies/compliance-platform/05-test-reports-list.webp";
+import cocList from "../../../assets/case-studies/compliance-platform/06-coc-list.webp";
+import vendorProducts from "../../../assets/case-studies/compliance-platform/07-vendor-portal-products.webp";
+import vendorUpload from "../../../assets/case-studies/compliance-platform/08-vendor-portal-upload.webp";
+import vendorManufacturing from "../../../assets/case-studies/compliance-platform/09-vendor-portal-manufacturing.webp";
 
 // Client work under NDA: never name the client, its systems or colleagues.
 

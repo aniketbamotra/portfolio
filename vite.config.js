@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { drafts } from './src/case-studies/drafts.js'
 
 const SITE = 'https://aneeek.com'
 
@@ -32,6 +33,14 @@ const shareImages = () => ({
   },
 })
 
+// Case study HTML entries, by Rollup input name. Drafts stay out of the build.
+const caseStudies = {
+  compliancePlatform: 'compliance-platform',
+  psymatch: 'psymatch',
+  immersiveBionic: 'immersive-bionic',
+}
+const page = (path) => fileURLToPath(new URL(path, import.meta.url))
+
 // https://vitejs.dev/config/
 // Each case study is its own HTML entry so it gets static meta tags and a
 // real URL without a router.
@@ -40,9 +49,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: fileURLToPath(new URL('./index.html', import.meta.url)),
-        compliancePlatform: fileURLToPath(
-          new URL('./compliance-platform/index.html', import.meta.url)
+        main: page('./index.html'),
+        ...Object.fromEntries(
+          Object.entries(caseStudies)
+            .filter(([, slug]) => !drafts.includes(slug))
+            .map(([name, slug]) => [name, page(`./${slug}/index.html`)])
         ),
       },
     },

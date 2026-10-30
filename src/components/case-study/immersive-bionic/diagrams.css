@@ -1,0 +1,65 @@
+/* Diagram for the Immersive Bionic case study, on the shared nodes and arrows
+   in caseStudy.css. Ink marks what the user sees. */
+
+.d-node.is-ink .d-tag{
+    color: inherit;
+    opacity: .75;
+}
+
+/* 1 · System flow: four steps, down on phones and across once there's room.
+   The Wi-Fi hop is labelled beside its arrow. */
+
+.sf-steps{
+    display: flex;
+    flex-direction: column;
+    max-width: 20rem;
+    margin-inline: auto;
+}
+.sf .d-step{
+    position: relative;
+}
+.sf-via{
+    position: absolute;
+    top: .75rem;
+    left: calc(50% + 1rem);
+    font-size: .9em;
+    line-height: 1;
+    color: var(--color-ink-muted);
+}
+
+@container (min-width: 600px){
+    .sf-steps{
+        flex-direction: row;
+        max-width: none;
+    }
+    .sf .d-step{
+        flex: 1 1 0;
+        flex-direction: row;
+        align-items: stretch;
+        min-width: 0;
+    }
+    /* Each step's basis is its arrow, so the boxes share what's left evenly. */
+    .sf .d-step + .d-step{
+        flex-basis: 2.75rem;
+    }
+    .sf .d-step.has-via{
+        flex-basis: 4.25rem;
+    }
+    .sf .d-step + .d-step::before{
+        align-self: center;
+        width: 2rem;
+        height: .75rem;
+        margin: 0 .375rem;
+        -webkit-mask-image: var(--arrow-right);
+        mask-image: var(--arrow-right);
+    }
+    .sf .d-step.has-via::before{
+        width: 3.5rem;
+    }
+    .sf-via{
+        top: auto;
+        bottom: calc(50% + .75rem);
+        left: 2.125rem;
+        translate: -50% 0;
+    }
+}

@@ -1,0 +1,19 @@
+%% DIAGRAM-2: Privacy pipeline. Drawn by PrivacyPipeline in ../Diagrams.jsx.
+flowchart TD
+  A[Patient answers] --> B[Clinic's rule engine<br/>standard reports]
+  A --> C[Redaction profile]
+  subgraph L1["Layer 1 · Reviewable redaction"]
+    C --> C1[Pseudonyms for<br/>structured fields]
+    C1 --> C2[AWS Comprehend<br/>finds people & places]
+    C2 --> C3[Claude rewrites<br/>free text]
+    C3 --> C4[Automated leak checks]
+    C4 --> C5[Staff review & edit]
+  end
+  B --> D
+  C5 --> D
+  subgraph L2["Layer 2 · Reversible tokens"]
+    D[Replace identifiers with<br/>opaque tokens] --> E{Any identifier<br/>left?}
+    E -->|yes| F[Blocked]
+  end
+  E -->|no| G[AI agent drafts report<br/>sees tokens only]
+  G --> H[Tokens restored on download<br/>for the clinician]

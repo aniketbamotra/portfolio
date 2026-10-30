@@ -37,17 +37,89 @@ export const Stats = ({ items, label }) => (
 
 // A UI frame, imported from src/assets/case-studies/<study>/. Frames sit on
 // the reading column, in line with the text they illustrate. All exports are
-// 1440×900.
-export const Frame = ({ src, alt, caption }) => (
+// 16:10 (1440×900, or 2880×1800 at 2x) unless width and height say otherwise.
+// A frame whose file isn't exported yet shows a labelled placeholder in dev
+// and nothing at all in a build, so a placeholder can never go live.
+export const Frame = ({ src, alt, caption, file, width = 1440, height = 900 }) => {
+  if (!src && !import.meta.env.DEV) return null;
+  return (
+    <figure className="cs-frame">
+      {src ? (
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div
+          className="cs-frame-placeholder"
+          role="img"
+          aria-label={alt}
+          style={{ aspectRatio: `${width} / ${height}` }}
+        >
+          <span className="highlight">{file}</span>
+        </div>
+      )}
+      {caption && (
+        <figcaption className="cs-caption highlight">{caption}</figcaption>
+      )}
+    </figure>
+  );
+};
+
+// Just enough JavaScript highlighting for short excerpts: comments, strings,
+// keywords and numbers. Everything else stays ink.
+const TOKENS =
+  /(\/\/.*)|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)|\b(const|let|var|function|return|if|else|null|true|false|require|new|await|async)\b|\b(\d+(?:\.\d+)?)\b/g;
+const KINDS = ["comment", "string", "keyword", "number"];
+
+const highlight = (source) => {
+  const parts = [];
+  let last = 0;
+  for (const match of source.matchAll(TOKENS)) {
+    if (match.index > last) parts.push(source.slice(last, match.index));
+    const kind = KINDS[match.slice(1).findIndex(Boolean)];
+    parts.push(
+      <span className={`cs-code-${kind}`} key={match.index}>
+        {match[0]}
+      </span>
+    );
+    last = match.index + match[0].length;
+  }
+  parts.push(source.slice(last));
+  return parts;
+};
+
+// A titled code excerpt. Long lines scroll inside the box, never the page.
+export const Code = ({ title, caption, children }) => (
+  <figure className="cs-frame cs-code">
+    <p className="cs-code-title highlight">{title}</p>
+    <pre tabIndex={0} aria-label={title}>
+      <code>{highlight(children.trim())}</code>
+    </pre>
+    {caption && (
+      <figcaption className="cs-caption highlight">{caption}</figcaption>
+    )}
+  </figure>
+);
+
+// A YouTube video, from the no-cookie domain and only loaded near the
+// viewport. 16:9, on the reading column like frames.
+export const Video = ({ id, title, caption }) => (
   <figure className="cs-frame">
-    <img
-      src={src}
-      alt={alt}
-      width="1440"
-      height="900"
-      loading="lazy"
-      decoding="async"
-    />
+    <div className="cs-video">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}?rel=0`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      />
+    </div>
     {caption && (
       <figcaption className="cs-caption highlight">{caption}</figcaption>
     )}

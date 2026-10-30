@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import logo from "../assets/images/Logo.png"
+import logo from "../assets/images/Logo.webp"
+import { projects } from "./projects/projectsData"
 import "./comp.css"
 
-// base points the section links back at the home page from other pages.
+// base points the logo back at the home page from other pages. Those pages
+// are case studies, so their menu lists every project instead of the
+// home page's sections.
 const TopMenu = ({ base = "" }) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
@@ -106,22 +109,45 @@ const TopMenu = ({ base = "" }) => {
               />
             </svg>
           </button>
-          <ul id="site-menu" className={`slide-in-menu${open ? " is-open" : ""}`}>
-            <li className="font">
-              <a href={`${base}#bio`} onClick={close}>
-                About
-              </a>
-            </li>
-            <li className="font">
-              <a href={`${base}#project`} onClick={close}>
-                Projects
-              </a>
-            </li>
-            <li className="font">
-              <a href='#contact-title' onClick={close}>
-                Contact
-              </a>
-            </li>
+          <ul
+            id="site-menu"
+            className={`slide-in-menu${base ? " is-projects" : ""}${open ? " is-open" : ""}`}
+          >
+            {base ? (
+              projects.map((project) => (
+                <li className="font" key={project.url}>
+                  <a
+                    href={project.url}
+                    onClick={close}
+                    aria-current={project.url === location.pathname ? "page" : undefined}
+                    {...(!project.caseStudy && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                  >
+                    {project.title}
+                  </a>
+                </li>
+              ))
+            ) : (
+              <>
+                <li className="font">
+                  <a href="#bio" onClick={close}>
+                    About
+                  </a>
+                </li>
+                <li className="font">
+                  <a href="#project" onClick={close}>
+                    Projects
+                  </a>
+                </li>
+                <li className="font">
+                  <a href='#contact-title' onClick={close}>
+                    Contact
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </header>
