@@ -6,20 +6,29 @@ import gemx from "../../assets/images/gemx.webp";
 import dcj from "../../assets/images/dcj.webp";
 import compliancePlatform from "../../assets/case-studies/compliance-platform/cover.webp";
 import psymatch from "../../assets/case-studies/psymatch/cover.webp";
+import compliancePlatformMobile from "../../assets/images/mobile-covers/compliance-platform.webp";
+import psymatchMobile from "../../assets/images/mobile-covers/psymatch.webp";
+import immersiveBionicMobile from "../../assets/images/mobile-covers/immersive-bionic.webp";
+import keployMobile from "../../assets/images/mobile-covers/keploy.webp";
+import gemxMobile from "../../assets/images/mobile-covers/gemx.webp";
+import suncareMobile from "../../assets/images/mobile-covers/suncare.webp";
+import dcjMobile from "../../assets/images/mobile-covers/dcj.webp";
 import { drafts } from "../../case-studies/drafts";
 
 // role and year are optional; when both are missing a project shows its domain.
 // caseStudy marks a project whose url is a page on this site rather than an
 // external link; summary is its one-line pitch for social cards.
 // Case studies listed in src/case-studies/drafts.js only show in dev.
-// mobileImage is an optional 4:5 portrait image for phones; until one is set,
-// the desktop screenshot is cropped to fit.
+// mobileImage is an optional portrait image for phones, cropped to the deck's
+// 4:5 frame (the covers in mobile-covers/ are 3:4); until one is set, the
+// desktop screenshot is cropped to fit.
 const isDraft = ({ url }) => drafts.some((slug) => url === `/${slug}/`);
 
 export const projects = [
   {
     title: "Compliance Platform",
     image: compliancePlatform,
+    mobileImage: compliancePlatformMobile,
     url: "/compliance-platform/",
     caseStudy: true,
     role: "Design Technologist",
@@ -30,6 +39,7 @@ export const projects = [
   {
     title: "PsyMatch",
     image: psymatch,
+    mobileImage: psymatchMobile,
     url: "/psymatch/",
     caseStudy: true,
     role: "Design, Workflow & Frontend Lead",
@@ -39,6 +49,7 @@ export const projects = [
   {
     title: "Immersive Bionic",
     image: immersiveBionic,
+    mobileImage: immersiveBionicMobile,
     url: "/immersive-bionic/",
     caseStudy: true,
     role: "Designer & Developer",
@@ -49,21 +60,25 @@ export const projects = [
   {
     title: "Keploy",
     image: keploy,
+    mobileImage: keployMobile,
     url: "https://keploy.io/",
   },
   {
     title: "GEMx",
     image: gemx,
+    mobileImage: gemxMobile,
     url: "https://gemx.ag/",
   },
   {
     title: "Suncare Formulations",
     image: suncare,
+    mobileImage: suncareMobile,
     url: "https://www.suncareformulations.com/",
   },
   {
     title: "Demand Climate Justice",
     image: dcj,
+    mobileImage: dcjMobile,
     url: "https://demandclimatejustice.org/",
   },
 ].filter((project) => import.meta.env.DEV || !isDraft(project));
