@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import immersiveBionic from "../../assets/images/immersive-bionic.webp";
 import suncare from "../../assets/images/suncare.webp";
-import purebet from "../../assets/images/purebet.webp";
 import keploy from "../../assets/images/keploy.webp";
 import gemx from "../../assets/images/gemx.webp";
 import dcj from "../../assets/images/dcj.webp";
@@ -60,16 +59,6 @@ export const projects = [
     draftOf: "immersive-bionic",
   },
   {
-    title: "Suncare Formulations",
-    image: suncare,
-    url: "https://www.suncareformulations.com/",
-  },
-  {
-    title: "Purebet",
-    image: purebet,
-    url: "https://www.purebet.io/",
-  },
-  {
     title: "Keploy",
     image: keploy,
     url: "https://keploy.io/",
@@ -78,6 +67,11 @@ export const projects = [
     title: "GEMx",
     image: gemx,
     url: "https://gemx.ag/",
+  },
+  {
+    title: "Suncare Formulations",
+    image: suncare,
+    url: "https://www.suncareformulations.com/",
   },
   {
     title: "Demand Climate Justice",

@@ -21,7 +21,7 @@ A UX Engineer who both designs and builds; the portfolio itself is the proof of 
 - Hagrid font is used under a CC BY-NC trial license (non-commercial).
 
 ## Evidence on Hand
-- Six projects with screenshots in `src/assets/images/`: Immersive Bionic (Behance case), Suncare Formulations, Purebet, Keploy, GEMx, Demand Climate Justice — each with a live URL.
+- Five projects with screenshots in `src/assets/images/`: Immersive Bionic (Behance case), Keploy, GEMx, Suncare Formulations, Demand Climate Justice — each with a live URL.
 - Project role and year are not yet supplied; do not invent them. No testimonials, metrics, or client quotes exist.
 
 ## Product Principles
