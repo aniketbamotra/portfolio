@@ -11,6 +11,3 @@ its import in `src/components/case-study/psymatch/PsyMatch.jsx`.
 - `admin-dashboard`
 - `report-generation`
 - `redaction-review`
-
-The page is a draft until `psymatch` is removed from
-`src/case-studies/drafts.js`.
